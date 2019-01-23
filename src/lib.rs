@@ -197,8 +197,8 @@ impl<'buf> fmt::Debug for FecHeader<'buf> {
 
 #[cfg(test)]
 mod tests {
-    use hex_literal::*;
     use super::*;
+    use hex_literal::*;
 
     #[test]
     fn column() {
