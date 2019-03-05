@@ -47,6 +47,10 @@ pub enum FecHeaderError {
     BufferTooShort(usize),
     /// The `e` (extended) flag is set to `0` (SMPTE 2022-1 requires that it is set to `1`).
     ExtendedFlagNotSet,
+    /// the `offset` field unexpectedly had the value `0`
+    OffsetValueZero,
+    /// the `NA` field unexpectedly had the value `0`
+    NumberAssociatedValueZero,
 }
 
 /// The set of headers values in a SMPTE 2022-1 packet.
@@ -65,6 +69,12 @@ impl<'buf> FecHeader<'buf> {
         let res = FecHeader { buf };
         if !res.extended() {
             return Err(FecHeaderError::ExtendedFlagNotSet);
+        }
+        if res.offset() == 0 {
+            return Err(FecHeaderError::OffsetValueZero);
+        }
+        if res.number_associated() == 0 {
+            return Err(FecHeaderError::NumberAssociatedValueZero);
         }
         if buf.len() < res.header_len() {
             return Err(FecHeaderError::BufferTooShort(buf.len()));
