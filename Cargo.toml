@@ -1,6 +1,6 @@
 [package]
 name = "smpte2022-1-packet"
-version = "0.1.0"
+version = "0.2.0"
 description = "Parser for SMPTE 2022-1 packet header format"
 categories = [ "multimedia::video" ]
 license = "MIT/Apache-2.0"
