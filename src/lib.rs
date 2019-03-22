@@ -186,6 +186,22 @@ impl<'buf> FecHeader<'buf> {
     pub fn sn_base_ext_bits(&self) -> u8 {
         self.buf[15]
     }
+
+    /// `true` iff a packet with the given sequence number would be associated with this FEC packet
+    pub fn associates_with(&self, seq: rtp_rs::Seq) -> bool {
+        let base = self.sn_base_low_bits();
+        let na = u16::from(self.number_associated());
+        let off = u16::from(self.offset());
+        let end = base + na * off;
+        base <= seq && seq < end && self.same_column(seq)
+    }
+
+    /// `true` if the packet with the given sequence number is in the same column as this packet,
+    /// or if this packet is anyway a row packet (i.e. it's 'offset' is `1`)
+    fn same_column(&self, seq: rtp_rs::Seq) -> bool {
+        let off = u16::from(self.offset());
+        u16::from(seq) % off == u16::from(self.sn_base_low_bits()) % off
+    }
 }
 
 impl<'buf> fmt::Debug for FecHeader<'buf> {
