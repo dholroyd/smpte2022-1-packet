@@ -3,7 +3,8 @@
 //! parity FEC'.
 //!
 //! Note this does **not implement FEC encoding or decoding**, just the parsing of the packet
-//! header fields.
+//! header fields.  For a decoder, see the
+//! [smpte2022-1-fec crate](https://crates.io/crates/smpte2022-1-fec).
 //!
 //! ## Header data format
 //!
