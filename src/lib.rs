@@ -103,12 +103,12 @@ impl<'buf> FecHeader<'buf> {
 
     /// 24 bit value of the minimum sequence number of media packets associated with this FEC packet
     pub fn sn_base(&self) -> u32 {
-        u32::from(self.sn_base_ext_bits()) << 16 | u32::from(self.sn_base_low_bits())
+        u32::from(self.sn_base_ext_bits()) << 16 | u32::from(u16::from(self.sn_base_low_bits()))
     }
 
     /// The low 16 bits of the minimum sequence number of media packets associated with this FEC packet
-    fn sn_base_low_bits(&self) -> u16 {
-        u16::from(self.buf[0]) << 8 | u16::from(self.buf[1])
+    fn sn_base_low_bits(&self) -> rtp_rs::Seq {
+        rtp_rs::Seq::from(u16::from(self.buf[0]) << 8 | u16::from(self.buf[1]))
     }
     /// The length of media packets associated with this FEC packet
     pub fn length_recovery(&self) -> u16 {
@@ -183,7 +183,7 @@ impl<'buf> FecHeader<'buf> {
     }
     /// The top 8 bits of the sequence number, or `0` if the sequence number fits in the 16 bits
     /// `sn_base` field.
-    fn sn_base_ext_bits(&self) -> u8 {
+    pub fn sn_base_ext_bits(&self) -> u8 {
         self.buf[15]
     }
 }

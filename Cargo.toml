@@ -10,6 +10,7 @@ keywords = [ "mpegts", "FEC", "2022-1", "ProMPEG", "2d-parity-FEC" ]
 edition = "2018"
 
 [dependencies]
+rtp-rs = "0.3.0"
 
 [dev-dependencies]
 hex-literal = "0.1"
