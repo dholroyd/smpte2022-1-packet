@@ -108,7 +108,7 @@ impl<'buf> FecHeader<'buf> {
     }
 
     /// The low 16 bits of the minimum sequence number of media packets associated with this FEC packet
-    fn sn_base_low_bits(&self) -> rtp_rs::Seq {
+    pub fn sn_base_low_bits(&self) -> rtp_rs::Seq {
         rtp_rs::Seq::from(u16::from(self.buf[0]) << 8 | u16::from(self.buf[1]))
     }
     /// The length of media packets associated with this FEC packet
