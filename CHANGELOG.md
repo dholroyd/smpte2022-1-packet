@@ -1,5 +1,8 @@
 # Change Log
 
+## 0.4.0
+### Changed 
+ - Made `FecHeader::sn_base_low_bits()` public, since that's the one everyone will need.
 
 ## 0.3.0
 
