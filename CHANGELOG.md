@@ -1,5 +1,9 @@
 # Change Log
 
+## Unreleased
+### Changed
+ - Bump `rtp-rs` dependency to 0.4 which fixes panic on malformed input
+
 ## 0.4.0
 ### Changed 
  - Made `FecHeader::sn_base_low_bits()` public, since that's the one everyone will need.
